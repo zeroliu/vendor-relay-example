@@ -1,0 +1,60 @@
+# @generated
+# run `yarn print-schema` to re-generate this file.
+
+"""
+Directs the executor to defer this fragment when the `if` argument is true or undefined.
+"""
+directive @defer(
+  """Deferred when true or undefined."""
+  if: Boolean! = true
+
+  """Unique name"""
+  label: String
+) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"""
+Directs the executor to stream plural fields when the `if` argument is true or undefined.
+"""
+directive @stream(
+  """Stream when true or undefined."""
+  if: Boolean! = true
+
+  """Unique name"""
+  label: String
+
+  """Number of items to return immediately"""
+  initialCount: Int = 0
+) on FIELD
+
+type VendorField {
+  id: ID!
+  name: String!
+  app: AppFieldWithoutSensitiveData
+  agreements: [VendorAgreementField]
+}
+
+type AppFieldWithoutSensitiveData {
+  id: ID!
+  name: String!
+  description: String!
+  logoUrl: String
+}
+
+type VendorAgreementField {
+  id: ID!
+  sourceAppInstanceIdentifier: String
+  name: String!
+  label: String
+  currency: String!
+  isAutoRenewal: Boolean!
+  totalCost: String
+}
+
+type Query {
+  vendor(id: ID!): VendorField
+  node(id: ID!): Node
+}
+
+interface Node {
+  id: ID!
+}
